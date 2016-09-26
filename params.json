@@ -1,6 +1,6 @@
 {
   "name": "Measure.GitHub.com",
-  "tagline": "介绍一下获取View宽高的3中方法",
+  "tagline": "介绍一下获取View宽高的3种方法",
   "body": "#介绍一下获取View宽高的3种方法\r\n\r\n###1. Activity中重写 onWindowFocusChanged()方法\r\n\r\n\t\t@Override\r\n\t\tpublic void onWindowFocusChanged(boolean hasFocus) {\r\n\t\t    super.onWindowFocusChanged(hasFocus);\r\n\t\t    if (hasFocus) {\r\n\t\t        int width  = view.getMeasuredWidth();\r\n\t\t        int height = view.getMeasuredHeight();\r\n\t\t    }\r\n\t\t}\r\n\r\n\r\n###2. view.post(runnable)\r\n\r\n通过post可以将一个runnable投递到消息队列的尾部，然后等待Looper调用此runnable的时候，view已经初始化好了\r\n\r\n        View.post(new Runnable() {\r\n            @Override\r\n            public void run() {\r\n               int width  = view.getMeasuredWidth();\r\n               int height = view.getMeasuredHeight();\r\n            }\r\n        });\r\n\r\n\r\n###3. ViewTreeObserver\r\n\r\n通过使用ViewTreeObserver 的接口OnGlobalLayoutListener回调,当View树内部的View可见性发生改变时，onGlobalLayout方法将被回调，因此是获取View的宽高的一个时机。\r\n\r\n\r\n       view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {\r\n            @Override\r\n            public void onGlobalLayout() {\r\n                view.getViewTreeObserver().removeGlobalOnLayoutListener(this);\r\n                width = view.getMeasuredWidth();\r\n                height = view.getMeasuredHeight();\r\n            }\r\n        });\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
