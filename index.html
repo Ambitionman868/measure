@@ -58,8 +58,8 @@
         @Override
         public void onGlobalLayout() {
             view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            width = view.getMeasuredWidth();
-            height = view.getMeasuredHeight();
+            int width = view.getMeasuredWidth();
+            int height = view.getMeasuredHeight();
         }
     });
 </code></pre>
